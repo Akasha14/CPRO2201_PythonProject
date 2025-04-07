@@ -16,13 +16,15 @@ def media_list(request):
 
     medias = Media.objects.all()
 
+    # Logic for searching data.
     if query:
         medias = medias.filter(
             Q(title__icontains=query) |
             Q(director__icontains=query) |
-            Q(cast__icontains=query)
+            Q(cast__icontains=query) 
         )
     
+    # Filtering based off dropdown choices.
     if type:
         medias = medias.filter(type=type)
 

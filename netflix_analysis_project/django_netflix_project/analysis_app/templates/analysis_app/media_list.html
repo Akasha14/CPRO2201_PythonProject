@@ -93,8 +93,13 @@
                 </select>
             </div>
         
-            <div class="col-md-2">
-                <button type="submit" class="btn btn-primary w-100">Filter</button>
+            <div class="center-button" >
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">Filter</button>
+                </div>
+                <div class="col-md-2">
+                    <a href="{% url 'media_list' %}" class="btn btn-secondary w-100">Clear Filters</a>
+                </div>
             </div>
         </form>
     
@@ -106,6 +111,7 @@
                     <th>Title</th>
                     <th>Type</th>
                     <th>Director</th>
+                    <th>Cast</th>
                     <th>Year</th>
                     <th>Country</th>
                     <th>Categories/Genre</th>
@@ -118,9 +124,10 @@
                 <tr>
                     <td>{{ media.title }}</td>
                     <td>{{ media.type }}</td>
-                    <td>{% if media.director != "nan" %}{{ media.director }}{% else %}--{% endif %}</td>
+                    <td>{{ media.director }}</td>
+                    <td>{{ media.cast }}</td>
                     <td>{{ media.release_year }}</td>
-                    <td>{% if media.country != "nan" %}{{ media.country }}{% else %}--{% endif %}</td>
+                    <td>{{ media.country }}</td>
                     <td>{{ media.listed_in }}</td>
                     <td>
                         <!-- Buttons to activate other CRUD operations. -->
