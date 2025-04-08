@@ -65,6 +65,7 @@ def media_list(request):
     
     all_genres = sorted(genre_set)
 
+    # Context for media table, and dropdowns.
     context = {
         'medias': medias,
         'types': Media.objects.values_list('type', flat=True).distinct(),
@@ -75,29 +76,35 @@ def media_list(request):
     return render(request, 'analysis_app/media_list.html', context)
 
 def media_create(request):
+    # If post validate and save.
     if request.method == "POST":
         form = MediaForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('media_list')
+    # Else get, blank form.
     else:
         form = MediaForm()
     return render(request, 'analysis_app/media_form.html', {'form': form})
 
 def media_update(request, media_id):
     media = get_object_or_404(Media, id=media_id)
+    # If post validate and save.
     if request.method == "POST":
         form = MediaForm(request.POST, instance=media)
         if form.is_valid():
             form.save()
             return redirect('media_list')
+    # Else get, prefilled form.
     else:
         form = MediaForm(instance=media)
     return render(request, 'analysis_app/media_form.html', {'form': form})
 
 def media_delete(request, media_id):
     media = get_object_or_404(Media, id=media_id)
+    # If post delete and return.
     if request.method == "POST":
         media.delete()
         return redirect('media_list')
+    # Not post, show confirmation page.
     return render(request, 'analysis_app/media_confirm_delete.html', {'media': media})

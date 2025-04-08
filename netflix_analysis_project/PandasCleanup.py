@@ -15,7 +15,7 @@ df['cast'] = df['cast'].fillna('Empty')
 df['country'] = df['country'].fillna('Empty')
 
 # Drop rows with missing date_added.
-df.dropna(subset=['date_added'], inplace=True)
+df = df.dropna(subset=['date_added'])
 
 # Count the number of unique values in each column.
 unique_values = df.nunique()
@@ -23,8 +23,8 @@ print("\nUnique values in each column:")
 print(unique_values)
 
 # Find the most frequent movie type.
-most_frequent_type = df['type'].mode()[0]
-print(f"\nThe most frequent movie type is: {most_frequent_type}")
+most_frequent_type = df['type'].mode()[0] # .mode() returns most frequent value, 0 ensures omly 1.
+print(f"\nThe most frequent type is: {most_frequent_type}")
 
 # Find the oldest and newest movies.
 oldest_movie = df[df['release_year'] == df['release_year'].min()]
@@ -44,6 +44,6 @@ print("\n Cleaned data:")
 filled_missing_values = df.isnull().sum()
 print(filled_missing_values)
 
-df.to_csv('netflix_titles_cleaned.csv', index=False)
+# df.to_csv('netflix_titles_cleaned.csv', index=False)
 
 print("\nCSV exported successfully!")
